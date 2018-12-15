@@ -1,0 +1,3 @@
+rootProject.name = 'ReactNativeTextCollapse'
+
+include ':app'
