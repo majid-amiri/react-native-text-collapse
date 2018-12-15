@@ -13,15 +13,14 @@ class TextCollapse extends PureComponent {
             UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         }
         const {collapseDuration,collapseType,springDamping} = this.props;
-        let type = collapseType === 'spring' ? 'spring' : 'easeInEaseOut';
         this.LayoutAnimation = {
             duration: collapseDuration,
             create: {
-                type: LayoutAnimation.Types[type],
+                type: LayoutAnimation.Types[collapseType],
                 property: LayoutAnimation.Properties.scaleY,
             },
             update: {
-                type: LayoutAnimation.Types[type],
+                type: LayoutAnimation.Types[collapseType],
                 springDamping: springDamping,
             },
         };
@@ -32,7 +31,11 @@ class TextCollapse extends PureComponent {
         initialTextLength: 70,
         collapseDuration: 250,
         collapseType: 'spring',
-        springDamping: 0.7
+        springDamping: 0.7,
+        showMoreTextStyle: {
+            color: '#858585',
+            paddingStart: 5
+        }
     };
 
     static propTypes = {
@@ -62,7 +65,7 @@ class TextCollapse extends PureComponent {
                     <View style={containerStyle}>
                         <Text style={textStyle} onPress={this.toggleShowMore}>
                             {showMore ? text : trimmedText}
-                            {shouldTrimmed && <Text style={[showMoreTextStyle ? showMoreTextStyle : {color: '#858585', paddingStart: 5}]}>
+                            {shouldTrimmed && <Text style={showMoreTextStyle}>
                                 {showMore ? 'less' : 'more'}
                             </Text>}
                         </Text>
